@@ -1,287 +1,72 @@
-  [1m[35m (24.3ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
-  [1m[35m (4.8ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
-  [1m[35m (0.5ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6607369127294810280)[0m
+  [1m[35m (2.1ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (1.5ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateArticles (20221208224302)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "articles" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "description" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20221208224302"]]
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.4ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2022-12-08 22:43:22.049293"], ["updated_at", "2022-12-08 22:43:22.049293"]]
+  [1m[36mTRANSACTION (1.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mArticle Load (0.4ms)[0m  [1m[34mSELECT "articles".* FROM "articles" ORDER BY "articles"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mArticle Create (2.1ms)[0m  [1m[32mINSERT INTO "articles" ("title", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["title", "first article"], ["description", "this is my first article"], ["created_at", "2022-12-09 22:04:53.132886"], ["updated_at", "2022-12-09 22:04:53.132886"]]
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mArticle Load (0.2ms)[0m  [1m[34mSELECT "articles".* FROM "articles"[0m
+  [1m[36mArticle Load (0.2ms)[0m  [1m[34mSELECT "articles".* FROM "articles" WHERE "articles"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
   [1m[36mActiveRecord::SchemaMigration Pluck (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-Migrating to CreateArticles (20221025200024)
-  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
-  [1m[35m (13.1ms)[0m  [1m[35mCREATE TABLE "articles" ("id" bigserial primary key, "title" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
-  [1m[36mActiveRecord::SchemaMigration Create (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20221025200024"]]
-  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT[0m
-  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
-  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
-  [1m[36mActiveRecord::InternalMetadata Create (0.7ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2022-10-25 20:01:02.101811"], ["updated_at", "2022-10-25 20:01:02.101811"]]
-  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
-  [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_advisory_unlock(6607369127294810280)[0m
-  [1m[36mActiveRecord::SchemaMigration Pluck (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-  [1m[36mActiveRecord::SchemaMigration Pluck (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6607369127294810280)[0m
-  [1m[36mActiveRecord::SchemaMigration Pluck (1.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-  [1m[36mActiveRecord::InternalMetadata Load (1.6ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
-  [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_advisory_unlock(6607369127294810280)[0m
-  [1m[36mActiveRecord::SchemaMigration Pluck (2.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-  [1m[36mActiveRecord::SchemaMigration Pluck (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6607369127294810280)[0m
-  [1m[36mActiveRecord::SchemaMigration Pluck (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
-  [1m[35m (11.5ms)[0m  [1m[34mSELECT pg_advisory_unlock(6607369127294810280)[0m
-  [1m[36mActiveRecord::SchemaMigration Pluck (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6607369127294810280)[0m
-  [1m[36mActiveRecord::SchemaMigration Pluck (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-  [1m[36mActiveRecord::InternalMetadata Load (0.8ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
-  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(6607369127294810280)[0m
-  [1m[36mActiveRecord::SchemaMigration Pluck (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-  [1m[36mActiveRecord::SchemaMigration Pluck (1.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-  [1m[36mActiveRecord::InternalMetadata Pluck (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
-  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-  [1m[36mActiveRecord::InternalMetadata Pluck (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
-  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-  [1m[36mActiveRecord::InternalMetadata Pluck (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
-  [1m[35m (53.4ms)[0m  [1m[35mDROP DATABASE IF EXISTS "be_blog_development"[0m
-  [1m[35m (52.1ms)[0m  [1m[35mDROP DATABASE IF EXISTS "be_blog_test"[0m
-  [1m[35m (157.6ms)[0m  [1m[35mCREATE DATABASE "be_blog_development" ENCODING = 'unicode'[0m
-  [1m[35m (189.4ms)[0m  [1m[35mCREATE DATABASE "be_blog_test" ENCODING = 'unicode'[0m
-  [1m[36mActiveRecord::SchemaMigration Pluck (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6607369127294810280)[0m
-  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_advisory_unlock(6607369127294810280)[0m
-  [1m[36mActiveRecord::SchemaMigration Pluck (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-  [1m[35m (0.4ms)[0m  [1m[35mCREATE DATABASE "be_blog_development" ENCODING = 'unicode'[0m
-  [1m[35m (0.3ms)[0m  [1m[35mCREATE DATABASE "be_blog_test" ENCODING = 'unicode'[0m
-  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6607369127294810280)[0m
-  [1m[36mActiveRecord::SchemaMigration Pluck (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-Migrating to CreateArticles (20221025200024)
-  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
-  [1m[35m (4.7ms)[0m  [1m[35mCREATE TABLE "articles" ("id" bigserial primary key, "title" character varying, "description" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
-  [1m[36mActiveRecord::SchemaMigration Create (2.7ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20221025200024"]]
-  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
-  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
-  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
-  [1m[36mActiveRecord::InternalMetadata Create (0.6ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2022-10-26 01:03:20.596385"], ["updated_at", "2022-10-26 01:03:20.596385"]]
-  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
-  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(6607369127294810280)[0m
-  [1m[36mActiveRecord::SchemaMigration Pluck (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-  [1m[36mActiveRecord::SchemaMigration Pluck (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
-  [1m[36mArticle Create (0.8ms)[0m  [1m[32mINSERT INTO "articles" ("title", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["title", "No Highway"], ["description", "Laudantium odio et est."], ["created_at", "2022-10-26 01:03:48.732982"], ["updated_at", "2022-10-26 01:03:48.732982"]]
-  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT[0m
-  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
-  [1m[36mArticle Create (0.3ms)[0m  [1m[32mINSERT INTO "articles" ("title", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["title", "The Waste Land"], ["description", "Tempora illo temporibus voluptatibus."], ["created_at", "2022-10-26 01:03:48.737270"], ["updated_at", "2022-10-26 01:03:48.737270"]]
-  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
-  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
-  [1m[36mArticle Create (0.2ms)[0m  [1m[32mINSERT INTO "articles" ("title", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["title", "Cover Her Face"], ["description", "Voluptate recusandae in eligendi."], ["created_at", "2022-10-26 01:03:48.740041"], ["updated_at", "2022-10-26 01:03:48.740041"]]
-  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
-  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
-  [1m[36mArticle Create (0.2ms)[0m  [1m[32mINSERT INTO "articles" ("title", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["title", "A Farewell to Arms"], ["description", "Enim laboriosam tempora assumenda."], ["created_at", "2022-10-26 01:03:48.742776"], ["updated_at", "2022-10-26 01:03:48.742776"]]
-  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
-  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
-  [1m[36mArticle Create (0.2ms)[0m  [1m[32mINSERT INTO "articles" ("title", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["title", "Of Human Bondage"], ["description", "Ea perferendis repellendus facere."], ["created_at", "2022-10-26 01:03:48.745960"], ["updated_at", "2022-10-26 01:03:48.745960"]]
-  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
-  [1m[36mArticle Load (0.5ms)[0m  [1m[34mSELECT "articles".* FROM "articles" ORDER BY "articles"."id" DESC LIMIT $1[0m  [["LIMIT", 1]]
-  [1m[36mArticle Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "articles"[0m
-  [1m[36mArticle Load (0.4ms)[0m  [1m[34mSELECT "articles".* FROM "articles"[0m
-Started GET "/" for 127.0.0.1 at 2022-10-25 21:13:53 -0400
-  [1m[36mActiveRecord::SchemaMigration Pluck (2.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-Processing by Rails::WelcomeController#index as HTML
-  Rendering /Users/tackerman/.rbenv/versions/2.7.6/lib/ruby/gems/2.7.0/gems/railties-7.0.4/lib/rails/templates/rails/welcome/index.html.erb
-  Rendered /Users/tackerman/.rbenv/versions/2.7.6/lib/ruby/gems/2.7.0/gems/railties-7.0.4/lib/rails/templates/rails/welcome/index.html.erb (Duration: 4.6ms | Allocations: 673)
-Completed 200 OK in 83ms (Views: 16.2ms | ActiveRecord: 0.0ms | Allocations: 6039)
-
-
-Started GET "/apple-touch-icon-precomposed.png" for 127.0.0.1 at 2022-10-25 21:17:06 -0400
-Started GET "/" for 127.0.0.1 at 2022-10-25 21:17:06 -0400
-Started GET "/apple-touch-icon.png" for 127.0.0.1 at 2022-10-25 21:17:06 -0400
-Started GET "/favicon.ico" for 127.0.0.1 at 2022-10-25 21:17:06 -0400
-  
-ActionController::RoutingError (No route matches [GET] "/apple-touch-icon-precomposed.png"):
-  
-Processing by Rails::WelcomeController#index as HTML
-  Rendering /Users/tackerman/.rbenv/versions/2.7.6/lib/ruby/gems/2.7.0/gems/railties-7.0.4/lib/rails/templates/rails/welcome/index.html.erb
-  Rendered /Users/tackerman/.rbenv/versions/2.7.6/lib/ruby/gems/2.7.0/gems/railties-7.0.4/lib/rails/templates/rails/welcome/index.html.erb (Duration: 1.7ms | Allocations: 369)
-Completed 200 OK in 5ms (Views: 4.0ms | ActiveRecord: 0.0ms | Allocations: 1137)
-
-
-  
-ActionController::RoutingError (No route matches [GET] "/apple-touch-icon.png"):
-  
-  
-ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
-  
-Started GET "/api/v1/articles" for 127.0.0.1 at 2022-10-25 21:17:16 -0400
-  
-SyntaxError (/Users/tackerman/Documents/projects/be-blog/app/controllers/api/v1/articles_controller.rb:2: class/module name must be CONSTANT
-  module v1
-         ^~
-):
-  
-app/controllers/api/v1/articles_controller.rb:2: class/module name must be CONSTANT
-app/controllers/api/v1/articles_controller.rb:2: class/module name must be CONSTANT
-Started GET "/api/v1/articles" for 127.0.0.1 at 2022-10-25 21:18:25 -0400
-  
-Zeitwerk::NameError (expected file /Users/tackerman/Documents/projects/be-blog/app/controllers/api/v1/articles_controller.rb to define constant Api::V1::ArticlesController, but didn't):
-  
-zeitwerk (2.6.1) lib/zeitwerk/loader/callbacks.rb:25:in `on_file_autoloaded'
-zeitwerk (2.6.1) lib/zeitwerk/kernel.rb:28:in `require'
-activesupport (7.0.4) lib/active_support/inflector/methods.rb:280:in `const_get'
-activesupport (7.0.4) lib/active_support/inflector/methods.rb:280:in `constantize'
-activesupport (7.0.4) lib/active_support/core_ext/string/inflections.rb:74:in `constantize'
-actionpack (7.0.4) lib/action_dispatch/http/request.rb:90:in `controller_class_for'
-actionpack (7.0.4) lib/action_dispatch/request/utils.rb:95:in `action_encoding_template'
-actionpack (7.0.4) lib/action_dispatch/request/utils.rb:83:in `encode'
-actionpack (7.0.4) lib/action_dispatch/request/utils.rb:45:in `set_binary_encoding'
-actionpack (7.0.4) lib/action_dispatch/http/parameters.rb:68:in `path_parameters='
-actionpack (7.0.4) lib/action_dispatch/journey/router.rb:48:in `block in serve'
-actionpack (7.0.4) lib/action_dispatch/journey/router.rb:32:in `each'
-actionpack (7.0.4) lib/action_dispatch/journey/router.rb:32:in `serve'
-actionpack (7.0.4) lib/action_dispatch/routing/route_set.rb:852:in `call'
-rack (2.2.4) lib/rack/etag.rb:27:in `call'
-rack (2.2.4) lib/rack/conditional_get.rb:27:in `call'
-rack (2.2.4) lib/rack/head.rb:12:in `call'
-activerecord (7.0.4) lib/active_record/migration.rb:603:in `call'
-actionpack (7.0.4) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
-activesupport (7.0.4) lib/active_support/callbacks.rb:99:in `run_callbacks'
-actionpack (7.0.4) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
-actionpack (7.0.4) lib/action_dispatch/middleware/executor.rb:14:in `call'
-actionpack (7.0.4) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
-actionpack (7.0.4) lib/action_dispatch/middleware/debug_exceptions.rb:28:in `call'
-actionpack (7.0.4) lib/action_dispatch/middleware/show_exceptions.rb:26:in `call'
-railties (7.0.4) lib/rails/rack/logger.rb:40:in `call_app'
-railties (7.0.4) lib/rails/rack/logger.rb:25:in `block in call'
-activesupport (7.0.4) lib/active_support/tagged_logging.rb:99:in `block in tagged'
-activesupport (7.0.4) lib/active_support/tagged_logging.rb:37:in `tagged'
-activesupport (7.0.4) lib/active_support/tagged_logging.rb:99:in `tagged'
-railties (7.0.4) lib/rails/rack/logger.rb:25:in `call'
-actionpack (7.0.4) lib/action_dispatch/middleware/remote_ip.rb:93:in `call'
-actionpack (7.0.4) lib/action_dispatch/middleware/request_id.rb:26:in `call'
-rack (2.2.4) lib/rack/runtime.rb:22:in `call'
-activesupport (7.0.4) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
-actionpack (7.0.4) lib/action_dispatch/middleware/server_timing.rb:61:in `block in call'
-actionpack (7.0.4) lib/action_dispatch/middleware/server_timing.rb:26:in `collect_events'
-actionpack (7.0.4) lib/action_dispatch/middleware/server_timing.rb:60:in `call'
-actionpack (7.0.4) lib/action_dispatch/middleware/executor.rb:14:in `call'
-actionpack (7.0.4) lib/action_dispatch/middleware/static.rb:23:in `call'
-rack (2.2.4) lib/rack/sendfile.rb:110:in `call'
-actionpack (7.0.4) lib/action_dispatch/middleware/host_authorization.rb:137:in `call'
-railties (7.0.4) lib/rails/engine.rb:530:in `call'
-puma (5.6.5) lib/puma/configuration.rb:252:in `call'
-puma (5.6.5) lib/puma/request.rb:77:in `block in handle_request'
-puma (5.6.5) lib/puma/thread_pool.rb:340:in `with_force_shutdown'
-puma (5.6.5) lib/puma/request.rb:76:in `handle_request'
-puma (5.6.5) lib/puma/server.rb:443:in `process_client'
-puma (5.6.5) lib/puma/thread_pool.rb:147:in `block in spawn_thread'
-Started GET "/api/v1/articles" for 127.0.0.1 at 2022-10-25 21:19:01 -0400
-Processing by Api::V1::ArticlesController#index as */*
-  [1m[36mArticle Load (43.2ms)[0m  [1m[34mSELECT "articles".* FROM "articles" ORDER BY created_at DESC[0m
-  ↳ app/controllers/api/v1/articles_controller.rb:6:in `index'
-Completed 200 OK in 61ms (Views: 12.7ms | ActiveRecord: 46.3ms | Allocations: 16648)
-
-
-Started GET "/apple-touch-icon-precomposed.png" for 127.0.0.1 at 2022-10-25 21:23:18 -0400
-Started GET "/" for 127.0.0.1 at 2022-10-25 21:23:18 -0400
-Started GET "/apple-touch-icon.png" for 127.0.0.1 at 2022-10-25 21:23:18 -0400
-Started GET "/favicon.ico" for 127.0.0.1 at 2022-10-25 21:23:18 -0400
-  
-ActionController::RoutingError (No route matches [GET] "/apple-touch-icon-precomposed.png"):
-  
-Processing by Rails::WelcomeController#index as HTML
-  Rendering /Users/tackerman/.rbenv/versions/2.7.6/lib/ruby/gems/2.7.0/gems/railties-7.0.4/lib/rails/templates/rails/welcome/index.html.erb
-  
-ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
-  
-  Rendered /Users/tackerman/.rbenv/versions/2.7.6/lib/ruby/gems/2.7.0/gems/railties-7.0.4/lib/rails/templates/rails/welcome/index.html.erb (Duration: 0.1ms | Allocations: 15)
-  
-ActionController::RoutingError (No route matches [GET] "/apple-touch-icon.png"):
-  
-Completed 200 OK in 11ms (Views: 10.4ms | ActiveRecord: 0.0ms | Allocations: 7265)
-
-
-Started GET "/api/v1/articles" for 127.0.0.1 at 2022-10-25 21:23:24 -0400
-Processing by Api::V1::ArticlesController#index as HTML
-  [1m[36mArticle Load (0.3ms)[0m  [1m[34mSELECT "articles".* FROM "articles" ORDER BY created_at DESC[0m
-  ↳ app/controllers/api/v1/articles_controller.rb:6:in `index'
-Completed 200 OK in 9ms (Views: 3.7ms | ActiveRecord: 3.1ms | Allocations: 2917)
-
-
-Started GET "/favicon.ico" for 127.0.0.1 at 2022-10-25 21:23:24 -0400
-  
-ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
-  
-Started GET "/api/v1/article/4" for 127.0.0.1 at 2022-10-25 21:23:32 -0400
-  
-ActionController::RoutingError (No route matches [GET] "/api/v1/article/4"):
-  
-Started GET "/api/v1/articles/4" for 127.0.0.1 at 2022-10-25 21:23:57 -0400
-Processing by Api::V1::ArticlesController#show as HTML
-  Parameters: {"id"=>"4"}
-  [1m[36mArticle Load (0.2ms)[0m  [1m[34mSELECT "articles".* FROM "articles" WHERE "articles"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
-  ↳ app/controllers/api/v1/articles_controller.rb:10:in `show'
-Completed 200 OK in 10ms (Views: 0.3ms | ActiveRecord: 0.3ms | Allocations: 2269)
-
-
-Started GET "/apple-touch-icon-precomposed.png" for 127.0.0.1 at 2022-10-25 21:30:47 -0400
-Started GET "/api/v1/articles/" for 127.0.0.1 at 2022-10-25 21:30:47 -0400
-Started GET "/apple-touch-icon.png" for 127.0.0.1 at 2022-10-25 21:30:47 -0400
-Started GET "/favicon.ico" for 127.0.0.1 at 2022-10-25 21:30:47 -0400
-  
-ActionController::RoutingError (No route matches [GET] "/apple-touch-icon-precomposed.png"):
-  
-  
-ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
-  
-  
-ActionController::RoutingError (No route matches [GET] "/apple-touch-icon.png"):
-  
-Processing by Api::V1::ArticlesController#index as HTML
-  [1m[36mArticle Load (0.7ms)[0m  [1m[34mSELECT "articles".* FROM "articles" ORDER BY created_at DESC[0m
-  ↳ app/controllers/api/v1/articles_controller.rb:6:in `index'
-Completed 200 OK in 74ms (Views: 3.7ms | ActiveRecord: 55.1ms | Allocations: 7315)
-
-
-Started POST "/api/v1/articles/" for 127.0.0.1 at 2022-10-25 21:31:03 -0400
-Processing by Api::V1::ArticlesController#create as */*
-  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
-  ↳ app/controllers/api/v1/articles_controller.rb:16:in `create'
-  [1m[36mArticle Create (0.6ms)[0m  [1m[32mINSERT INTO "articles" ("title", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["title", nil], ["description", nil], ["created_at", "2022-10-26 01:31:03.929511"], ["updated_at", "2022-10-26 01:31:03.929511"]]
-  ↳ app/controllers/api/v1/articles_controller.rb:16:in `create'
-  [1m[36mTRANSACTION (3.2ms)[0m  [1m[35mCOMMIT[0m
-  ↳ app/controllers/api/v1/articles_controller.rb:16:in `create'
-Completed 200 OK in 21ms (Views: 0.3ms | ActiveRecord: 3.9ms | Allocations: 1875)
-
-
-Started POST "/api/v1/articles/?title=Hello%20World!&description=This%20is%20a%20story%20all%20about%20how%20my%20life%20got%20flip%20turned%20upside%20down." for 127.0.0.1 at 2022-10-25 21:31:53 -0400
-Processing by Api::V1::ArticlesController#create as */*
-  Parameters: {"title"=>"Hello World!", "description"=>"This is a story all about how my life got flip turned upside down."}
-  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
-  ↳ app/controllers/api/v1/articles_controller.rb:16:in `create'
-  [1m[36mArticle Create (0.2ms)[0m  [1m[32mINSERT INTO "articles" ("title", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["title", "Hello World!"], ["description", "This is a story all about how my life got flip turned upside down."], ["created_at", "2022-10-26 01:31:53.642675"], ["updated_at", "2022-10-26 01:31:53.642675"]]
-  ↳ app/controllers/api/v1/articles_controller.rb:16:in `create'
-  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
-  ↳ app/controllers/api/v1/articles_controller.rb:16:in `create'
-Completed 200 OK in 4ms (Views: 0.4ms | ActiveRecord: 0.7ms | Allocations: 1764)
-
-
-  [1m[36mArticle Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "articles"[0m
-  [1m[36mArticle Load (0.4ms)[0m  [1m[34mSELECT "articles".* FROM "articles" ORDER BY "articles"."id" DESC LIMIT $1[0m  [["LIMIT", 1]]
-Started POST "/api/v1/articles/" for 127.0.0.1 at 2022-10-25 21:33:52 -0400
-Processing by Api::V1::ArticlesController#create as */*
-  Parameters: {"title"=>"Goodbye World!", "description"=>"This is a story all about how my life got flip turned upside down.", "article"=>{"title"=>"Goodbye World!", "description"=>"This is a story all about how my life got flip turned upside down."}}
-[31mUnpermitted parameter: :article. Context: { controller: Api::V1::ArticlesController, action: create, request: #<ActionDispatch::Request:0x00007fcd9738ac40>, params: {"title"=>"Goodbye World!", "description"=>"This is a story all about how my life got flip turned upside down.", "controller"=>"api/v1/articles", "action"=>"create", "article"=>{"title"=>"Goodbye World!", "description"=>"This is a story all about how my life got flip turned upside down."}} }[0m
-  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
-  ↳ app/controllers/api/v1/articles_controller.rb:16:in `create'
-  [1m[36mArticle Create (0.6ms)[0m  [1m[32mINSERT INTO "articles" ("title", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["title", "Goodbye World!"], ["description", "This is a story all about how my life got flip turned upside down."], ["created_at", "2022-10-26 01:33:52.880140"], ["updated_at", "2022-10-26 01:33:52.880140"]]
-  ↳ app/controllers/api/v1/articles_controller.rb:16:in `create'
-  [1m[36mTRANSACTION (3.3ms)[0m  [1m[35mCOMMIT[0m
-  ↳ app/controllers/api/v1/articles_controller.rb:16:in `create'
-Completed 200 OK in 25ms (Views: 2.2ms | ActiveRecord: 4.1ms | Allocations: 1856)
-
-
-  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6607369127294810280)[0m
-  [1m[36mActiveRecord::SchemaMigration Pluck (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-Migrating to CreateSections (20221026212918)
-  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
-  [1m[35m (11.0ms)[0m  [1m[35mCREATE TABLE "sections" ("id" bigserial primary key, "type" character varying, "content" character varying, "content_size" character varying, "alt_text" character varying, "font_style" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
-  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20221026212918"]]
-  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT[0m
-  [1m[36mActiveRecord::InternalMetadata Load (0.7ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
-  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(6607369127294810280)[0m
-  [1m[36mActiveRecord::SchemaMigration Pluck (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddTagsToArticles (20221209221038)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (1.2ms)[0m  [1m[35mALTER TABLE "articles" ADD "tags" varchar[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20221209221038"]]
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.8ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mArticle Load (0.1ms)[0m  [1m[34mSELECT "articles".* FROM "articles" ORDER BY "articles"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mArticle Load (0.2ms)[0m  [1m[34mSELECT "articles".* FROM "articles" ORDER BY "articles"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mArticle Update (0.5ms)[0m  [1m[33mUPDATE "articles" SET "updated_at" = ?, "tags" = ? WHERE "articles"."id" = ?[0m  [["updated_at", "2022-12-09 22:11:46.351677"], ["tags", "[\"sports\", \"coding\", \"diy\"]"], ["id", 1]]
+  [1m[36mTRANSACTION (1.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mArticle Load (0.2ms)[0m  [1m[34mSELECT "articles".* FROM "articles" ORDER BY "articles"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mArticle Load (0.1ms)[0m  [1m[34mSELECT "articles".* FROM "articles" ORDER BY "articles"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mArticle Load (0.2ms)[0m  [1m[34mSELECT "articles".* FROM "articles" ORDER BY "articles"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mArticle Load (0.2ms)[0m  [1m[34mSELECT "articles".* FROM "articles" WHERE "articles"."tags" = ? LIMIT ?[0m  [["tags", "sports"], ["LIMIT", 1]]
+  [1m[36mArticle Load (0.2ms)[0m  [1m[34mSELECT "articles".* FROM "articles" /* loading for inspect */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mArticle Load (0.1ms)[0m  [1m[34mSELECT "articles".* FROM "articles" /* loading for inspect */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mArticle Load (0.1ms)[0m  [1m[34mSELECT "articles".* FROM "articles" /* loading for inspect */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mArticle Load (0.1ms)[0m  [1m[34mSELECT "articles".* FROM "articles" /* loading for inspect */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mArticle Load (0.2ms)[0m  [1m[34mSELECT "articles".* FROM "articles" WHERE "articles"."tags" = ?[0m  [["tags", "sports"]]
+  [1m[36mArticle Load (0.2ms)[0m  [1m[34mSELECT "articles".* FROM "articles" /* loading for inspect */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mArticle Load (0.1ms)[0m  [1m[34mSELECT "articles".* FROM "articles" /* loading for inspect */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mArticle Load (0.1ms)[0m  [1m[34mSELECT "articles".* FROM "articles" WHERE "articles"."tags" = ?[0m  [["tags", "sports"]]
+  [1m[36mArticle Load (0.1ms)[0m  [1m[34mSELECT "articles".* FROM "articles" WHERE "articles"."tags" = ?[0m  [["tags", "sports"]]
+  [1m[36mArticle Load (0.2ms)[0m  [1m[34mSELECT "articles".* FROM "articles" /* loading for inspect */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mArticle Load (0.1ms)[0m  [1m[34mSELECT "articles".* FROM "articles" /* loading for inspect */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mArticle Load (0.1ms)[0m  [1m[34mSELECT "articles".* FROM "articles" /* loading for inspect */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mArticle Load (0.1ms)[0m  [1m[34mSELECT "articles".* FROM "articles" /* loading for inspect */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mArticle Load (0.2ms)[0m  [1m[34mSELECT "articles".* FROM "articles" /* loading for inspect */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mArticle Load (0.2ms)[0m  [1m[34mSELECT "articles".* FROM "articles" /* loading for inspect */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mArticle Load (0.2ms)[0m  [1m[34mSELECT "articles".* FROM "articles" /* loading for inspect */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mArticle Load (0.1ms)[0m  [1m[34mSELECT "articles".* FROM "articles" /* loading for inspect */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mArticle Load (0.2ms)[0m  [1m[34mSELECT "articles".* FROM "articles" WHERE "articles"."tags" = ?[0m  [["tags", "sports"]]
+  [1m[36mArticle Load (0.2ms)[0m  [1m[34mSELECT "articles".* FROM "articles"[0m
+  [1m[36mArticle Load (0.1ms)[0m  [1m[34mSELECT "articles".* FROM "articles" /* loading for inspect */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mArticle Load (0.1ms)[0m  [1m[34mSELECT "articles".* FROM "articles" /* loading for inspect */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mArticle Load (0.1ms)[0m  [1m[34mSELECT "articles".* FROM "articles"[0m
+  [1m[36mArticle Load (0.3ms)[0m  [1m[34mSELECT "articles".* FROM "articles" WHERE (tags @> ARRAY['sports'])[0m
+  [1m[36mArticle Load (0.2ms)[0m  [1m[34mSELECT "articles".* FROM "articles" WHERE "articles"."tags" = ?[0m  [["tags", "sports"]]
+  [1m[36mArticle Load (0.1ms)[0m  [1m[34mSELECT "articles".* FROM "articles"[0m
+  [1m[36mArticle Load (0.2ms)[0m  [1m[34mSELECT "articles".* FROM "articles" WHERE "articles"."tags" = ?[0m  [["tags", "sports"]]
+  [1m[36mArticle Load (0.1ms)[0m  [1m[34mSELECT "articles".* FROM "articles"[0m
+  [1m[36mArticle Load (0.2ms)[0m  [1m[34mSELECT "articles".* FROM "articles" WHERE "articles"."tags" IS NOT NULL[0m
+  [1m[36mArticle Load (0.3ms)[0m  [1m[34mSELECT "articles".* FROM "articles" WHERE "articles"."tags" = ?[0m  [["tags", "sports"]]
+  [1m[36mArticle Load (0.2ms)[0m  [1m[34mSELECT "articles".* FROM "articles"[0m
+  [1m[36mArticle Load (0.1ms)[0m  [1m[34mSELECT "articles".* FROM "articles"[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mArticle Create (2.4ms)[0m  [1m[32mINSERT INTO "articles" ("title", "description", "created_at", "updated_at", "tags") VALUES (?, ?, ?, ?, ?)[0m  [["title", "second, the next one"], ["description", "not the first"], ["created_at", "2022-12-13 22:15:52.862056"], ["updated_at", "2022-12-13 22:15:52.862056"], ["tags", nil]]
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mArticle Load (0.2ms)[0m  [1m[34mSELECT "articles".* FROM "articles"[0m
+  [1m[36mArticle Load (0.2ms)[0m  [1m[34mSELECT "articles".* FROM "articles" WHERE "articles"."title" = ? LIMIT ?[0m  [["title", "first article"], ["LIMIT", 1]]
